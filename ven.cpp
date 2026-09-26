@@ -1,16 +1,45 @@
 #include <iostream>
-#include <string>
 #include <windows.h>
+#include <string>
+
+void printMenu() {
+    std::cout << "\n1 - Приветствие\n2 - Таблица умножения\n3 - Выход\nВыбор: ";
+}
+
+void sayHello() {
+    std::string name;
+    int age;
+    
+    std::cout << "Введите имя и фамилию: ";
+    std::cin.ignore();
+    std::getline(std::cin, name);
+
+    std::cout << "Введите возраст: ";
+    std::cin >> age;
+
+    if (age>=18) std::cout << "Привет, " << name << ", доступ разрешен!\n";
+    else if (18 - age == 1) std::cout << "Возвращайся через год!\n";
+    else if (2<=(18 - age) and (18-age)<=4) std::cout << "Возвращайся через " << (18-age) << " года!\n";
+    else std::cout << "Возвращайся через " << 18-age << " лет!\n";
+}
+
+void printMultiplicationTable() {
+    int num;
+    
+    std::cout << "Введи число: ";
+    std::cin >> num;
+
+    for (int i = 1; i <= 10; i++)
+        std::cout << num << " * " << i << " = " << num*i << "\n";
+}
 
 int main() {
     SetConsoleCP(CP_UTF8);
     SetConsoleOutputCP(CP_UTF8);
-    
-    std::string name;
-    int choice, age, num;
 
+    int choice;
     while (true) {
-        std::cout << "\n1 - Приветствие\n2 - Таблица умножения\n3 - Выход\nВыбор: ";
+        printMenu();
         if (!(std::cin >> choice)) {
             std::cin.clear();
             std::cin.ignore(10000, '\n');
@@ -18,39 +47,9 @@ int main() {
             continue;
         }
 
-        switch (choice) {
-            case 1: {
-                std::cout << "Введи имя и фамилию: ";
-                std::cin.ignore();
-                std::getline(std::cin, name);
-
-                std::cout << "Введи возраст: ";
-                std::cin >> age;
-
-                if (age >= 18)
-                    std::cout << "Привет, " << name << ", доступ разрешён!\n";
-                else
-                    if (18-age == 1)
-                        std::cout << "Доступ запрещён! Возвращайся через год!\n";
-                    else if (2<=(18-age) and (18-age)<=4)
-                        std::cout << "Доступ запрещён! Возвращайся через " << (18-age) << " года!\n";
-                    else
-                        std::cout << "Доступ запрещён! Возвращайся через " << (18-age) << " лет!\n";
-
-                break;
-            }
-            case 2: {
-                std::cout << "Введи число: ";
-                std::cin >> num;
-                for (int i = 1; i <= 10; ++i)
-                    std::cout << num << " x " << i << " = " << num * i << "\n";
-                break;
-            }
-            case 3:
-                std::cout << "Пока!\n";
-                return 0;
-            default:
-                std::cout << "Неверный выбор\n";
-        }
+        if (choice == 3) break;
+        else if (choice == 1) sayHello();
+        else if (choice == 2) printMultiplicationTable();
+        else std::cout << "Неверный выбор\n";
     }
 }
