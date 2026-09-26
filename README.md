@@ -7,6 +7,14 @@
 - [ ] Классы и RAII
 - [ ] ...
 
+## Проекты (по возрастанию)
+### Уровень 1
+- [ ] Todo-list + SQLite
+- [ ] Калькулятор-парсер
+- [ ] Свои wc/cat/grep
+### Уровень 4 → Open Source
+- [ ] good first issue в fmt/json/spdlog
+
 ## Текущий проект
 - **Todo-list + SQLite** (в процессе)
 
