@@ -1,36 +1,67 @@
 #include <iostream>
-#include <windows.h>
 #include <string>
+#include <limits>
+#include <windows.h>
 
 void printMenu() {
     std::cout << "\n1 - Приветствие\n2 - Таблица умножения\n3 - Выход\nВыбор: ";
 }
 
+bool readNumber(int& num) {
+    if (!(std::cin >> num)) {
+        std::cin.clear();
+        std::cin.ignore(10000, '\n');
+        return false;
+    }
+    return true;
+}
+
+bool readPerson(std::string& name, int& age) {
+    std::cout << "Напиши имя и фамилию: ";
+    std::cin >> std::ws;
+    std::getline(std::cin, name);
+
+    std::cout << "Напиши возраст: ";
+    if (!readNumber(age)) {
+        std::cout << "Это не число!\n";
+        return false;
+    }
+    return true;
+}
+
+void printGreeting(const std::string& name, int age) {
+    if (age >= 18) {
+        std::cout << "Привет, " << name << ", регистрация пройдена!\n";
+        return;
+    }
+
+    int years = 18 - age;
+    if (years == 1) {
+        std::cout << "Подожди 1 год!\n";
+    } else if (years >= 2 && years <= 4) {
+        std::cout << "Подожди " << years << " года!\n";
+    } else {
+        std::cout << "Подожди " << years << " лет!\n";
+    }
+}
+
 void sayHello() {
     std::string name;
     int age;
-    
-    std::cout << "Введите имя и фамилию: ";
-    std::cin.ignore();
-    std::getline(std::cin, name);
-
-    std::cout << "Введите возраст: ";
-    std::cin >> age;
-
-    if (age>=18) std::cout << "Привет, " << name << ", доступ разрешен!\n";
-    else if (18 - age == 1) std::cout << "Возвращайся через год!\n";
-    else if (2<=(18 - age) and (18-age)<=4) std::cout << "Возвращайся через " << (18-age) << " года!\n";
-    else std::cout << "Возвращайся через " << 18-age << " лет!\n";
+    if (readPerson(name, age)) {
+        printGreeting(name, age);
+    }
 }
 
 void printMultiplicationTable() {
     int num;
-    
     std::cout << "Введи число: ";
-    std::cin >> num;
-
-    for (int i = 1; i <= 10; i++)
-        std::cout << num << " * " << i << " = " << num*i << "\n";
+    while (!readNumber(num)) {
+        std::cout << "Введи число! ";
+    }
+    for (int i = 1; i <= 10; ++i) {
+        std::cout << num << " * " << i << " = " << num * i << "\n";
+    }
 }
 
 int main() {
@@ -40,16 +71,16 @@ int main() {
     int choice;
     while (true) {
         printMenu();
-        if (!(std::cin >> choice)) {
-            std::cin.clear();
-            std::cin.ignore(10000, '\n');
+        if (!readNumber(choice)) {
             std::cout << "Введи число!\n";
             continue;
         }
 
-        if (choice == 3) break;
-        else if (choice == 1) sayHello();
-        else if (choice == 2) printMultiplicationTable();
-        else std::cout << "Неверный выбор\n";
+        switch (choice) {
+            case 1: sayHello(); break;
+            case 2: printMultiplicationTable(); break;
+            case 3: std::cout << "Пока!\n"; return 0;
+            default: std::cout << "Введи число от 1 до 3!\n"; break;
+        }
     }
 }
