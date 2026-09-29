@@ -2,9 +2,10 @@
 #include <string>
 #include <limits>
 #include <windows.h>
+#include <vector>
 
 void printMenu() {
-    std::cout << "\n1 - Приветствие\n2 - Таблица умножения\n3 - Выход\nВыбор: ";
+    std::cout << "\n1 - Приветствие\n2 - Таблица умножения\n3 - Анализ строки\n4 - Выход\nВыбор: ";
 }
 
 bool readNumber(int& num) {
@@ -59,9 +60,51 @@ void printMultiplicationTable() {
     while (!readNumber(num)) {
         std::cout << "Введи число! ";
     }
+    std::vector<int> results;
     for (int i = 1; i <= 10; ++i) {
-        std::cout << num << " * " << i << " = " << num * i << "\n";
+        results.push_back(num*i);
     }
+    int multiplier = 1;
+    for (const int& result : results) {
+        std::cout << num << " * " << multiplier << " = " << result << "\n";
+        ++multiplier;
+    }
+}
+
+void analyzeString() {
+    std::cout << "Введите строку: ";
+    std::string str;
+    std::cin >> std::ws;
+    std::getline (std::cin, str);
+
+    
+    if (str.empty()) {
+        std::cout << "Строка пуста!\n";
+        return;
+    }
+    std::cout << "Первый символ: " << str.front() << "\n" << "Последний символ: " << str.back() << "\n";
+    
+    size_t pos = str.find('a');   
+    std::cout << "Размер строки: " << str.size() << "\n";
+    if (pos == std::string::npos) {
+        std::cout << "Буквы 'a' нет\n";
+    } 
+    else {
+        std::cout << "Буква 'a' найдена на позиции " << pos << "\n";
+    }
+    if (str.size() <=3){
+        std::cout << "Строка слишком мала!\n";
+    }
+    else {
+        std::cout << "Подстрока: '" << str.substr(2, 4) << "'\n";
+    }
+    int CounterO = 0;
+    for (char symbol : str) {
+        if (symbol == 'o') {
+            CounterO++;
+        }
+    }
+    std::cout << "В строке " << CounterO << " букв 'o'!\n"; 
 }
 
 int main() {
@@ -79,8 +122,9 @@ int main() {
         switch (choice) {
             case 1: sayHello(); break;
             case 2: printMultiplicationTable(); break;
-            case 3: std::cout << "Пока!\n"; return 0;
-            default: std::cout << "Введи число от 1 до 3!\n"; break;
+            case 3: analyzeString(); break;
+            case 4: std::cout << "Пока!\n"; return 0;
+            default: std::cout << "Введи число от 1 до 4!\n"; break;
         }
     }
 }
