@@ -3,7 +3,7 @@
 ## Прогресс
 - [x] Основы: cout, cin, if/else, while
 - [x] Функции, ссылки, буфер ввода
-- [ ] Векторы (std::vector) и строки (std::string)
+- [x] Векторы (std::vector) и строки (std::string)
 - [ ] Классы и RAII
 - [ ] ...
 
