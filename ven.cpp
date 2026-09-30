@@ -1,8 +1,8 @@
 #include <iostream>
 #include <string>
 #include <limits>
-#include <windows.h>
 #include <vector>
+#include <locale>
 
 void printMenu() {
     std::cout << "\n1 - Приветствие\n2 - Таблица умножения\n3 - Анализ строки\n4 - Выход\nВыбор: ";
@@ -108,8 +108,7 @@ void analyzeString() {
 }
 
 int main() {
-    SetConsoleCP(CP_UTF8);
-    SetConsoleOutputCP(CP_UTF8);
+    setlocale(LC_ALL, "ru-RU.UTF-8");
 
     int choice;
     while (true) {
